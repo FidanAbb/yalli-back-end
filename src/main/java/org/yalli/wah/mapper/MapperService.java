@@ -36,7 +36,17 @@ public class MapperService {
     public MentorEntity findMentorById(Long id) {
         return mentorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("MENTOR ENTITY NOT FOUND"));
     }
-
+    //commentRepository.findAllByMentorId(id).size()
+//        Pageable pageable = PageRequest.of(number, size);
+//        Page<List<CommentDto>>  commentEntities= new PageImpl<>(commentRepository.findAllByMentorId(id, pageable).stream().map(x->commentMapper.mapCommentEntityToCommentDto(x.stream().findAny().get())).collect(Collectors.toList()));
+//        new PageImpl<>(commentRepository.findAllByMentorId(Math.toIntExact(id)), pageable, commentRepository.findAllByMentorId(Math.toIntExact(id)).size() );
+//        MentorEntity mentorEntity =  mentorRepository.findById(id).orElseThrow();
+//         MentorDetailDto mentorDetailDto = mentorMapper.mapMentorToMentorDetailDto(mentorEntity);
+//         mentorDetailDto.setComments( new PageImpl<>(commentRepository.findAllByMentorId(Math.toIntExact(id)), pageable, commentRepository.findAllByMentorId(Math.toIntExact(id)).size() ););
+//        System.out.println(mentorRepository.findAllByIdGroupByComments(id));
+    //return mentorEntities.map(MentorMapper.INSTANCE::mapMentorToMentorDetailDto);
+//    return commentRepository.findAllByMentorId(id);;
+//
     public Page<CommentDto> ToCommentDtoPage(List<CommentDto> commentDtoList, Pageable pageable) {
         final int start = (int) pageable.getOffset();
         final int end = Math.min((start + pageable.getPageSize()), commentDtoList.size());
