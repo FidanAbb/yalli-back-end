@@ -35,6 +35,8 @@ public class UserService {
 
     private final EmailService emailService;
 
+    private LocalDateTime dateTime = LocalDateTime.now();
+
     public HashMap<String, String> login(LoginDto loginDto) {
         log.info("ActionLog.login.start email {}", loginDto.getEmail());
         UserEntity userEntity = getUserByEmail(loginDto.getEmail());
@@ -81,13 +83,21 @@ public class UserService {
         UserEntity userEntity = userRepository.findByEmail(registerDto.getEmail()).orElse(new UserEntity());
         userEntity = UserMapper.INSTANCE.mapRegisterDtoToUser(registerDto,userEntity);
         userEntity.setPassword(passwordUtil.encode(userEntity.getPassword()));
+        Integer numberOfOtps = userEntity.getNumberOfOtp();
+        userEntity.setNumberOfOtp(numberOfOtps++);
+        if(numberOfOtps==1){
+            userEntity.setAskOtpExpiration(LocalDateTime.now().plusMinutes(5));
+        }
+        if(numberOfOtps==5 && userEntity.getAskOtpExpiration().isAfter(LocalDateTime.now())) {
 
 
-        //send otp
-        String otp = generateOtp();
-        userEntity.setOtp(otp);
-        userEntity.setOtpExpiration(LocalDateTime.now().plusSeconds(60));
-        emailService.sendConfirmationEmail(registerDto.getEmail(), otp);
+            //send otp
+            String otp = generateOtp();
+            userEntity.setOtp(otp);
+            userEntity.setOtpExpiration(LocalDateTime.now().plusSeconds(60));
+            emailService.sendConfirmationEmail(registerDto.getEmail(), otp);
+
+        }
 
         userRepository.save(userEntity);
         log.info("ActionLog.register.end email {}", registerDto.getEmail());

@@ -55,4 +55,6 @@ public class UserEntity {
     private boolean otpVerified;
     @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean emailConfirmed = false;
+    private Integer numberOfOtp;
+    private LocalDateTime askOtpExpiration;
 }
