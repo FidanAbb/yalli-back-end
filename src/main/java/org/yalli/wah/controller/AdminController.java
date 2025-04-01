@@ -14,6 +14,7 @@ import org.yalli.wah.model.dto.*;
 import org.yalli.wah.model.exception.ResourceNotFoundException;
 import org.yalli.wah.service.*;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Map;
 
@@ -95,7 +96,7 @@ public class AdminController {
     }
 
     @PostMapping("/create-group")
-    public void createGroup(@RequestBody AdminGroupRequestDto adminGroupRequestDto, @RequestHeader("user-id") Long userId) {
+    public void createGroup(@RequestBody GroupRequest adminGroupRequestDto, @RequestHeader("user-id") Long userId) {
         if (permissionService.hasPermission(userId, "create")) {
             adminService.createGroup(adminGroupRequestDto, userId);
         }

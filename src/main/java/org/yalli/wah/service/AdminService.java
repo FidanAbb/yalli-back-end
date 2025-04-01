@@ -105,10 +105,11 @@ public class AdminService {
     }
 
 
-    public void createGroup(AdminGroupRequestDto adminGroupRequestDto, Long adminId) {
+    public void createGroup(GroupRequest adminGroupRequestDto, Long adminId) {
         log.info("ActionLog.createGroup.start by admin {}", adminId);
         Long userId = userRepository.findByEmail(adminRepository.findById(adminId).orElseThrow(()->new ResourceNotFoundException("admin not found")).getEmail()).orElseThrow(()->new ResourceNotFoundException("admin should have user in platform")).getId();
-        groupRepository.save(AdminMapper.INSTANCE.ToGroupEntity(adminGroupRequestDto, userId));
+        adminGroupRequestDto.setUserId(userId);
+        groupRepository.save(GroupMapper.INSTANCE.mapDtoToEntity(adminGroupRequestDto));
         log.info("ActionLog.createGroup.end by admin {}", adminId);
     }
 
