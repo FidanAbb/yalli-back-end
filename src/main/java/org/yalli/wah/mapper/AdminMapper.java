@@ -21,6 +21,4 @@ public abstract class AdminMapper {
     public abstract AdminDto toDto(AdminEntity admin);
     public abstract AdminLightDto toLightDto(AdminEntity admin);
 
-    @Mapping(source = "userId", target = "userEntity.id")
-    public abstract GroupEntity ToGroupEntity(AdminGroupRequestDto adminGroupRequestDto, Long userId);
 }

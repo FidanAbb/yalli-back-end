@@ -16,4 +16,6 @@ public class AdminGroupRequestDto {
     private Long memberCount;
     private String link;
     private GroupCategory category;
+    private String city;
+    private Long userId;
 }
