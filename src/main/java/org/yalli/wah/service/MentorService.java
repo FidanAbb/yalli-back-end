@@ -163,4 +163,8 @@ public class MentorService {
     public void deleteMentor(Long id){
          mentorRepository.deleteById(id);
     }
+
+    public void getAllMentor(){
+
+    }
 }

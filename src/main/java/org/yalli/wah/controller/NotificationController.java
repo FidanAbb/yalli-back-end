@@ -23,4 +23,10 @@ public class NotificationController {
         return notificationService.getAll(userId, country);
     }
 
+    @GetMapping
+    public List<NotificationDto> getAllNotifications(){
+        return notificationService.getNotification();
+    }
+
+
 }
