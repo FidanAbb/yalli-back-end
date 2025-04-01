@@ -26,4 +26,7 @@ public class NotificationService {
                 .orElseThrow(() ->
                         new ResourceNotFoundException("NOTIFICATION_NOT_FOUND")));
     }
+    public List<NotificationDto> getNotification(){
+        return NotificationMapper.INSTANCE.toNotificationDtoList(notificationRepository.findAll());
+    }
 }
