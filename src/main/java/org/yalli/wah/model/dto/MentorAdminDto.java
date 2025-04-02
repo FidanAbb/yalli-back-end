@@ -17,4 +17,5 @@ public class MentorAdminDto {
     private MentorCategory mentorCategory;
     private LocalDateTime createdAt;
     private MentorStatus status;
+    private Double rating;
 }
