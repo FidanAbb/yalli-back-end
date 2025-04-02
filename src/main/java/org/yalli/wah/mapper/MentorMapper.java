@@ -2,6 +2,7 @@ package org.yalli.wah.mapper;
 
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
+import org.yalli.wah.dao.entity.CommentEntity;
 import org.yalli.wah.dao.entity.MentorEntity;
 import org.yalli.wah.model.dto.MentorAdminDto;
 import org.yalli.wah.model.dto.MentorDetailDto;
@@ -11,6 +12,7 @@ import org.yalli.wah.model.enums.MentorStatus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Mapper(imports = { MentorStatus.class })
@@ -52,7 +54,8 @@ public interface MentorMapper {
             return list.stream().limit(3).toList();
         return list;
     }
-    @Mapping(target = "fullName", source = "user.fullName")
-    @Mapping(target = "email", source = "user.email")
-    MentorAdminDto mapMentorToMentorAdminDto(MentorEntity mentorEntity);
+    @Mapping(target = "fullName", source = "mentorEntity.user.fullName")
+    @Mapping(target = "email", source = "mentorEntity.user.email")
+    MentorAdminDto mapMentorToMentorAdminDto(MentorEntity mentorEntity, Double rating);
+
 }

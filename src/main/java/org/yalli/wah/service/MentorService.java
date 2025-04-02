@@ -157,7 +157,8 @@ public class MentorService {
     }
     public List<MentorAdminDto> getAllMentors(){
         List<MentorEntity> mentorEntities =  mentorRepository.findAll();
-        return mentorEntities.stream().map(MentorMapper.INSTANCE::mapMentorToMentorAdminDto).toList();
+
+        return mentorEntities.stream().map(x->MentorMapper.INSTANCE.mapMentorToMentorAdminDto(x, calcAverageRating(x.getComments()))).toList();
     }
 
     public void deleteMentor(Long id){
